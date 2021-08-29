@@ -1,4 +1,8 @@
 import React, { Component } from 'react';
+import Section from './components/Section';
+import FeedbackOptions from './components/FeedbackOptions';
+import Statistics from './components/Statistics';
+import Notification from './components/Notification';
 
 class App extends Component {
   state = {
@@ -25,64 +29,28 @@ class App extends Component {
   };
 
   render() {
+    const {
+      state: { good, neutral, bad },
+      incrementStats,
+      countTotalFeedback,
+      countPositiveFeedbackPercentage,
+    } = this;
+
     return (
-      <div>
-        <div>
-          <h2>Please leave feedback</h2>
-          <button
-            type="button"
-            onClick={e => {
-              this.incrementStats(e);
-            }}
-            data-name="good"
-          >
-            Good
-          </button>
-          <button
-            type="button"
-            onClick={e => {
-              this.incrementStats(e);
-            }}
-            data-name="neutral"
-          >
-            Neutral
-          </button>
-          <button
-            type="button"
-            onClick={e => {
-              this.incrementStats(e);
-            }}
-            data-name="bad"
-          >
-            Bad
-          </button>
-        </div>
-        <div>
-          <h2>Statistics</h2>
-          <ul>
-            <li>
-              <span>Good:</span>
-              <span>{this.state.good}</span>
-            </li>
-            <li>
-              <span>Neutral:</span>
-              <span>{this.state.neutral}</span>
-            </li>
-            <li>
-              <span>Bad:</span>
-              <span>{this.state.bad}</span>
-            </li>
-            <li>
-              <span>Total:</span>
-              <span>{this.countTotalFeedback()}</span>
-            </li>
-            <li>
-              <span>Positive feedback:</span>
-              <span>{this.countPositiveFeedbackPercentage()}%</span>
-            </li>
-          </ul>
-        </div>
-      </div>
+      <Section title="Виджет отзывов">
+        <FeedbackOptions options={1} onLeaveFeedback={incrementStats} />
+        {this.countTotalFeedback() ? (
+          <Statistics
+            good={good}
+            neutral={neutral}
+            bad={bad}
+            total={countTotalFeedback()}
+            positivePercentage={countPositiveFeedbackPercentage()}
+          />
+        ) : (
+          <Notification message="No feedback given" />
+        )}
+      </Section>
     );
   }
 }
