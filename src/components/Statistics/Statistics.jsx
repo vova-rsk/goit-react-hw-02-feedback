@@ -1,9 +1,10 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import { List } from './Statistics.styled';
 
 const Statistics = ({ good, neutral, bad, total, positivePercentage }) => {
   return (
-    <ul>
+    <List>
       <li>
         <span>Good:</span>
         <span>{good}</span>
@@ -24,7 +25,7 @@ const Statistics = ({ good, neutral, bad, total, positivePercentage }) => {
         <span>Positive feedback:</span>
         <span>{positivePercentage}%</span>
       </li>
-    </ul>
+    </List>
   );
 };
 
