@@ -30,6 +30,7 @@ class App extends Component {
 
   render() {
     const {
+      state,
       state: { good, neutral, bad },
       incrementStats,
       countTotalFeedback,
@@ -38,8 +39,11 @@ class App extends Component {
 
     return (
       <Section title="Виджет отзывов">
-        <FeedbackOptions options={1} onLeaveFeedback={incrementStats} />
-        {this.countTotalFeedback() ? (
+        <FeedbackOptions
+          options={Object.keys(state)}
+          onLeaveFeedback={incrementStats}
+        />
+        {countTotalFeedback() ? (
           <Statistics
             good={good}
             neutral={neutral}
