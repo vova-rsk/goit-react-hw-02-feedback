@@ -38,23 +38,27 @@ class App extends Component {
     } = this;
 
     return (
-      <Section title="Виджет отзывов">
-        <FeedbackOptions
-          options={Object.keys(state)}
-          onLeaveFeedback={incrementStats}
-        />
-        {countTotalFeedback() ? (
-          <Statistics
-            good={good}
-            neutral={neutral}
-            bad={bad}
-            total={countTotalFeedback()}
-            positivePercentage={countPositiveFeedbackPercentage()}
+      <>
+        <Section title="Please leave feedback">
+          <FeedbackOptions
+            options={Object.keys(state)}
+            onLeaveFeedback={incrementStats}
           />
+        </Section>
+        {countTotalFeedback() ? (
+          <Section title="Statistics">
+            <Statistics
+              good={good}
+              neutral={neutral}
+              bad={bad}
+              total={countTotalFeedback()}
+              positivePercentage={countPositiveFeedbackPercentage()}
+            />
+          </Section>
         ) : (
           <Notification message="No feedback given" />
         )}
-      </Section>
+      </>
     );
   }
 }
