@@ -11,15 +11,18 @@ class App extends Component {
     bad: 0,
   };
 
+  /*метод для добавления текущего отзыва*/
   incrementStats = e => {
     const statName = e.target.dataset.name;
     this.setState(prevState => ({ [statName]: prevState[statName] + 1 }));
   };
 
+  /*метод для подсчета общего количества отзывов*/
   countTotalFeedback = () => {
     return Object.values(this.state).reduce((acc, elem) => acc + elem, 0);
   };
 
+  /*метод для подсчета процента позитивных отзывов*/
   countPositiveFeedbackPercentage = () => {
     if (!this.state.good) {
       return 0;
@@ -28,6 +31,7 @@ class App extends Component {
     return Math.round((this.state.good / this.countTotalFeedback()) * 100);
   };
 
+  /*метод для формирования разметки*/
   render() {
     const {
       state,
