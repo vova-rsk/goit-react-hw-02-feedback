@@ -12,18 +12,18 @@ class App extends Component {
     bad: 0,
   };
 
-  /*метод для добавления текущего отзыва*/
+  /*method for adding current feedback*/
   incrementStats = e => {
     const statName = e.target.dataset.name;
     this.setState(prevState => ({ [statName]: prevState[statName] + 1 }));
   };
 
-  /*метод для подсчета общего количества отзывов*/
+  /*method for calculating the total quantity of feedbacks */
   countTotalFeedback = () => {
     return Object.values(this.state).reduce((acc, elem) => acc + elem, 0);
   };
 
-  /*метод для подсчета процента позитивных отзывов*/
+  /*method for calculating the percentage of positive feedbacks */
   countPositiveFeedbackPercentage = () => {
     if (!this.state.good) {
       return 0;
@@ -32,32 +32,26 @@ class App extends Component {
     return Math.round((this.state.good / this.countTotalFeedback()) * 100);
   };
 
-  /*метод для формирования разметки*/
+  /*method for generating markup */
   render() {
-    const {
-      state,
-      state: { good, neutral, bad },
-      incrementStats,
-      countTotalFeedback,
-      countPositiveFeedbackPercentage,
-    } = this;
+    const { good, neutral, bad } = this.state;
 
     return (
       <Container>
         <Section title="Please leave feedback">
           <FeedbackOptions
-            options={Object.keys(state)}
-            onLeaveFeedback={incrementStats}
+            options={Object.keys(this.state)}
+            onLeaveFeedback={this.incrementStats}
           />
         </Section>
-        {countTotalFeedback() ? (
+        {this.countTotalFeedback() ? (
           <Section title="Statistics">
             <Statistics
               good={good}
               neutral={neutral}
               bad={bad}
-              total={countTotalFeedback()}
-              positivePercentage={countPositiveFeedbackPercentage()}
+              total={this.countTotalFeedback()}
+              positivePercentage={this.countPositiveFeedbackPercentage()}
             />
           </Section>
         ) : (
